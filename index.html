@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Squircle vs Border Radius</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="header-content">
+        <h1>Squircle vs Border Radius</h1>
+        <p class="subtitle">Visual comparison of curves in modern UI design</p>
+      </div>
+      <div class="theme-toggle">
+        <button id="theme-toggle-btn" class="theme-btn" title="Toggle dark mode">
+          <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+          </svg>
+          <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20">
+            <path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0-5a1 1 0 0 0 1-1V1a1 1 0 0 0-2 0v1a1 1 0 0 0 1 1zm0 20a1 1 0 0 0-1 1v1a1 1 0 0 0 2 0v-1a1 1 0 0 0-1-1zm13-9h-1a1 1 0 0 0 0 2h1a1 1 0 0 0 0-2zM1 12a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h1a1 1 0 0 0 0-2H1zm18.7-7.4a1 1 0 0 0-1.4 1.4l1 1a1 1 0 0 0 1.4-1.4l-1-1zM6 19.6l-1 1a1 1 0 0 0 1.4 1.4l1-1a1 1 0 0 0-1.4-1.4zM19.6 18a1 1 0 0 0-1.4 0l-1 1a1 1 0 0 0 1.4 1.4l1-1a1 1 0 0 0 0-1.4zM6 4.6A1 1 0 0 0 4.6 6l1 1a1 1 0 0 0 1.4-1.4l-1-1z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+    
+    <nav class="nav-tabs">
+      <button class="tab-btn active" data-tab="comparison">Comparison</button>
+      <button class="tab-btn" data-tab="generator">Generator</button>
+      <button class="tab-btn" data-tab="about">About</button>
+    </nav>
+    
+    <!-- Comparison Tab Content -->
+    <div class="tab-content active" id="comparison-content">
+      <div class="comparison-container">
+        <div class="shapes-container">
+          <div class="shape-wrapper">
+            <div class="shape standard-radius" id="standard-shape">
+              <div class="annotation-point top-right"></div>
+              <div class="annotation-point bottom-right"></div>
+              <div class="annotation-point bottom-left"></div>
+              <div class="annotation-point top-left"></div>
+            </div>
+            <div class="shape-label">Standard Border Radius</div>
+            <div class="annotation top-right-annotation" id="standard-annotation">
+              <div class="annotation-line"></div>
+              <div class="annotation-box">
+                <div>Corner Radius: <span id="radius-value">32</span></div>
+                <div>Corner Smoothing: 0%</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="shape-wrapper">
+            <div class="shape squircle" id="squircle-shape">
+              <div class="annotation-point top-right"></div>
+              <div class="annotation-point bottom-right"></div>
+              <div class="annotation-point bottom-left"></div>
+              <div class="annotation-point top-left"></div>
+            </div>
+            <div class="shape-label">iOS-Style Squircle</div>
+            <div class="annotation bottom-right-annotation" id="squircle-annotation">
+              <div class="annotation-line"></div>
+              <div class="annotation-box squircle-annotation-box">
+                <div>Corner Radius: <span id="squircle-radius-value">32</span></div>
+                <div>Corner Smoothing: <span id="smoothing-value">100</span>%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="comparison-controls">
+          <div class="control-group">
+            <label for="corner-radius-slider">Corner Radius</label>
+            <div class="slider-container">
+              <input type="range" id="corner-radius-slider" min="0" max="100" value="32">
+              <span class="value-label" id="corner-radius-display">32</span>
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label for="smoothing-slider">Smoothing Intensity</label>
+            <div class="slider-container">
+              <input type="range" id="smoothing-slider" min="0" max="100" value="100">
+              <span class="value-label" id="smoothing-display">100%</span>
+            </div>
+          </div>
+          
+          <div class="control-group">
+            <label for="shape-size-slider">Shape Size</label>
+            <div class="slider-container">
+              <input type="range" id="shape-size-slider" min="100" max="400" value="280">
+              <span class="value-label" id="shape-size-display">280</span>
+            </div>
+          </div>
+          
+          <div class="color-control">
+            <label>Shape Color</label>
+            <div class="color-swatches">
+              <button class="color-swatch active" data-color="#F59E0B" style="background-color: #F59E0B"></button>
+              <button class="color-swatch" data-color="#3B82F6" style="background-color: #3B82F6"></button>
+              <button class="color-swatch" data-color="#10B981" style="background-color: #10B981"></button>
+              <button class="color-swatch" data-color="#EF4444" style="background-color: #EF4444"></button>
+              <button class="color-swatch" data-color="#8B5CF6" style="background-color: #8B5CF6"></button>
+              <button class="color-swatch" data-color="#EC4899" style="background-color: #EC4899"></button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="curve-profile">
+          <h3>Curve Profile Comparison</h3>
+          <div class="curve-visualization">
+            <div class="curve-svg-container" id="curve-visualization">
+              <!-- SVG will be dynamically inserted here -->
+            </div>
+            <div class="curve-legend">
+              <div class="legend-item">
+                <div class="legend-color standard-curve"></div>
+                <span>Standard Corner (Border Radius)</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color squircle-curve"></div>
+                <span>Squircle Corner</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="corner-zoom">
+          <h3>Corner Detail</h3>
+          <div class="zoom-container">
+            <div class="zoom-standard" id="zoom-standard"></div>
+            <div class="zoom-squircle" id="zoom-squircle"></div>
+          </div>
+          <div class="zoom-labels">
+            <span>Standard Corner</span>
+            <span>Squircle Corner</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="explanation-section">
+        <div class="explanation-card">
+          <h3>What Makes Squircles Special?</h3>
+          <p>
+            Standard border radius creates a perfect quarter-circle at each corner, but this can look mechanically rigid in UI design. 
+            Squircles use a more sophisticated curve that varies along its length, creating a more organic, visually pleasing shape.
+          </p>
+          <p>
+            The curve of a squircle doesn't maintain a constant radius. Instead, it uses a continuous function that produces a curve 
+            with varying curvature - tighter near the corner point, gentler as it transitions to the straight edges.
+          </p>
+        </div>
+        
+        <div class="explanation-card">
+          <h3>Where Squircles Are Used</h3>
+          <p>
+            Apple pioneered the use of squircles in UI design, using them for iOS app icons, interface elements, and hardware designs. 
+            They create a softer, more organic feel than standard rounded rectangles.
+          </p>
+          <p>
+            Today, many design systems incorporate squircle-like geometry for components like buttons, cards, and panels to create a 
+            more harmonious, natural appearance.
+          </p>
+        </div>
+      </div>
+      
+      <div class="code-section">
+        <div class="code-tabs">
+          <button class="code-tab active" data-code="svg">SVG</button>
+          <button class="code-tab" data-code="css">CSS</button>
+        </div>
+        
+        <div class="code-container">
+          <pre id="code-output"></pre>
+          <button id="copy-btn" class="copy-btn">
+            <svg viewBox="0 0 24 24" width="16" height="16">
+              <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+            </svg>
+            Copy Code
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Generator Tab Content -->
+    <div class="tab-content" id="generator-content">
+      <div class="generator-container">
+        <div class="editor-panel">
+          <div class="preview-area">
+            <div id="shape-preview"></div>
+          </div>
+          
+          <div class="controls-panel">
+            <div class="control-card">
+              <h3>Dimensions</h3>
+              <div class="control-row">
+                <label for="width-input">Width</label>
+                <div class="input-with-unit">
+                  <input type="number" id="width-input" value="200" min="10" max="500">
+                </div>
+              </div>
+              
+              <div class="control-row">
+                <label for="height-input">Height</label>
+                <div class="input-with-unit">
+                  <input type="number" id="height-input" value="200" min="10" max="500">
+                </div>
+              </div>
+              
+              <div class="control-row">
+                <button id="lock-ratio" class="icon-button active" title="Lock aspect ratio">
+                  <svg viewBox="0 0 24 24" width="16" height="16">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/>
+                  </svg>
+                </button>
+                <button id="reset-dimensions" class="text-button">Reset</button>
+              </div>
+            </div>
+            
+            <div class="control-card">
+              <h3>Corner Style</h3>
+              <div class="control-row toggle-group">
+                <label class="toggle-option">
+                  <input type="radio" name="corner-style" value="standard" checked>
+                  <span>Standard</span>
+                </label>
+                <label class="toggle-option">
+                  <input type="radio" name="corner-style" value="squircle">
+                  <span>Squircle</span>
+                </label>
+              </div>
+              
+              <div class="control-row">
+                <label for="radius-control">Radius</label>
+                <div class="slider-with-value">
+                  <input type="range" id="radius-control" min="0" max="100" value="20">
+                  <span id="radius-display">20</span>
+                </div>
+              </div>
+              
+              <div id="smoothing-control-row" class="control-row hidden">
+                <label for="smoothing-control">Smoothing</label>
+                <div class="slider-with-value">
+                  <input type="range" id="smoothing-control" min="0" max="100" value="100">
+                  <span id="smoothing-display">100%</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="control-card">
+              <h3>Appearance</h3>
+              <div class="control-row">
+                <label>Fill Color</label>
+                <div class="color-input-group">
+                  <input type="color" id="fill-color" value="#3B82F6">
+                  <input type="text" id="color-hex" value="#3B82F6">
+                </div>
+              </div>
+              
+              <div class="control-row">
+                <div class="switch-control">
+                  <label for="border-toggle">Border</label>
+                  <label class="switch">
+                    <input type="checkbox" id="border-toggle">
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+              
+              <div id="border-controls" class="hidden">
+                <div class="control-row">
+                  <label for="border-width">Width</label>
+                  <div class="input-with-unit">
+                    <input type="number" id="border-width" value="2" min="1" max="20">
+                  </div>
+                </div>
+                
+                <div class="control-row">
+                  <label for="border-color">Color</label>
+                  <div class="color-input-group">
+                    <input type="color" id="border-color" value="#000000">
+                    <input type="text" id="border-hex" value="#000000">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="code-output-section">
+          <div class="code-format-tabs">
+            <button class="format-tab active" data-format="svg">SVG</button>
+            <button class="format-tab" data-format="css">CSS</button>
+            <button class="format-tab" data-format="react">React</button>
+          </div>
+          <div class="code-preview">
+            <pre id="generator-code"></pre>
+            <button id="generator-copy" class="copy-button">
+              <svg viewBox="0 0 24 24" width="16" height="16">
+                <path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+              </svg>
+              Copy Code
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- About Tab Content -->
+    <div class="tab-content" id="about-content">
+      <div class="about-container">
+        <h2>Understanding Squircles in UI Design</h2>
+        
+        <div class="about-section">
+          <p class="about-intro">
+            The squircle is a mathematical shape that blends the properties of a square and a circle to create 
+            a visually balanced, organic form. In modern UI design, squircles have become increasingly important 
+            for creating interfaces that feel natural and refined.
+          </p>
+          
+          <div class="about-grid">
+            <div class="about-card">
+              <h3>The Mathematical Difference</h3>
+              <p>
+                A standard rounded rectangle uses a perfect quarter-circle at each corner with a constant radius. 
+                A squircle uses a superellipse-based curve where the radius of curvature varies continuously along the path.
+              </p>
+              <p>
+                The formal equation for a superellipse is |x/a|ⁿ + |y/b|ⁿ = 1, where n controls the "squircleness." 
+                iOS specifically uses a modified curve with Bézier control points to create their unique squircle shape.
+              </p>
+            </div>
+            
+            <div class="about-card">
+              <h3>Why Squircles Matter</h3>
+              <p>
+                Human perception is sensitive to subtle curve differences. The organic, varying curvature of squircles 
+                feels more natural and visually pleasing than the mathematically perfect but rigid circular arcs.
+              </p>
+              <p>
+                This subtle difference contributes significantly to the perceived quality and refinement of an interface. 
+                It's one of many small details that together create a premium, polished user experience.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-section">
+          <h3>Applications in Modern Design</h3>
+          <div class="applications-grid">
+            <div class="application-card">
+              <div class="app-icon-example"></div>
+              <h4>App Icons</h4>
+              <p>
+                iOS app icons use the squircle shape to create a consistent, cohesive visual language. 
+                This subtle curve creates a more organic feel than standard rounded squares.
+              </p>
+            </div>
+            
+            <div class="application-card">
+              <div class="button-example">Button</div>
+              <h4>Buttons & Controls</h4>
+              <p>
+                Buttons with squircle corners feel more inviting and natural. The varied curve creates a subtle 
+                improvement in perceived quality and design sophistication.
+              </p>
+            </div>
+            
+            <div class="application-card">
+              <div class="card-example">
+                <div class="card-header-example"></div>
+                <div class="card-content-example"></div>
+              </div>
+              <h4>Cards & Containers</h4>
+              <p>
+                Content cards and containers benefit from squircle corners by creating a softer, 
+                more harmonious frame for content display.
+              </p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-section">
+          <h3>Implementation Approaches</h3>
+          <p>
+            There are several ways to implement squircles in modern web and app interfaces:
+          </p>
+          <ul class="implementation-list">
+            <li>
+              <strong>SVG Path:</strong> The most precise method, using Bézier curves to create the exact squircle shape.
+            </li>
+            <li>
+              <strong>CSS clip-path:</strong> Using the path() function to clip a rectangular element into a squircle shape.
+            </li>
+            <li>
+              <strong>Border radius approximation:</strong> Some design systems use different border-radius values for each corner to approximate the squircle effect.
+            </li>
+            <li>
+              <strong>Custom masking:</strong> Creating a squircle mask and applying it to UI elements.
+            </li>
+          </ul>
+          <p>
+            This tool helps you visualize and generate the code needed to implement true squircles in your interface designs.
+          </p>
+        </div>
+        
+        <div class="about-section">
+          <h3>Design Systems Using Squircles</h3>
+          <p>
+            Several prominent design systems incorporate squircle-like forms:
+          </p>
+          <ul class="design-systems-list">
+            <li>
+              <strong>Apple Human Interface Guidelines:</strong> Pioneered the use of squircles for iOS app icons and UI elements.
+            </li>
+            <li>
+              <strong>Google Material Design:</strong> Uses superellipse-inspired shapes in some components.
+            </li>
+            <li>
+              <strong>Microsoft Fluent Design:</strong> Incorporates subtly variable corners in UI elements.
+            </li>
+            <li>
+              <strong>Samsung One UI:</strong> Uses squircle-inspired shapes for app icons and UI components.
+            </li>
+          </ul>
+        </div>
+        
+        <div class="creator">
+          <p>Created with ❤️ by <a href="https://www.enricodeiana.design/" target="_blank">Enrico Deiana</a></p>
+        </div>
+      </div>
+    </div>
+    
+    <div id="toast" class="toast hidden">
+      <div class="toast-content">
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+        </svg>
+        <span>Code copied to clipboard!</span>
+      </div>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>
